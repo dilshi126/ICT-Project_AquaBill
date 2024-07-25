@@ -1,0 +1,200 @@
+<%- include('../partials/header_admin.ejs') %>
+    <style>
+        .details .recentDetails h1 {
+            color: #666;
+            font-size: 36px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .details .recentDetails form {
+            display: -ms-grid;
+            display: grid;
+            grid-gap: 16px;
+            background-color: #FFF;
+            padding: 32px;
+
+
+        }
+
+        @media (min-width: 768px) {
+            .details .recentDetails form {
+                -ms-grid-columns: (1fr);
+                grid-template-columns: repeat(2, 1fr);
+
+
+            }
+        }
+
+        .details .recentDetails form .form-group.full {
+            grid-column: 1 / -1
+        }
+
+        .details .recentDetails form .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #3B3B3B;
+            font-size: 14px;
+        }
+
+        .details .recentDetails form .form-group .form-element {
+            outline: none;
+            border: none;
+            display: block;
+            width: 100%;
+            border-radius: 8px;
+            padding: 12px 16px;
+            background-color: #F3F3F3;
+            -webkit-transition: 0.4s;
+            transition: 0.4s
+        }
+
+        .details .recentDetails form .form-group .form-element:focus {
+            -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+            background-color: rgb(255, 255, 255);
+
+        }
+
+        .details .recentDetails .form .form-group .form-element.h3 {
+            color: #3B3B3B;
+        }
+
+        .details .recentDetails form .form-group textarea {
+            resize: none;
+            min-height: 100px;
+        }
+
+        .details .recentDetail form .submit-group {
+            grid-column: 1 / -1;
+            text-align: right;
+        }
+
+        .details .recentDetails form .submit-group input[type="submit"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 30px;
+            outline: none;
+            background: none;
+            padding: 12px 16px;
+            background-color: #FECE2F;
+            border-radius: 8px;
+            cursor: pointer;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            top: 916px;
+
+
+        }
+
+        .details .recentDetails form .submit-group input[type="submit"]:hover {
+            background-color: rgb(178, 178, 6)
+        }
+    </style>
+
+    <body>
+        <div class="container">
+            <%- include('../partials/officer_nav.ejs') %>  
+            <!--main-->
+            <div class="main">
+                <div class="topbar">
+                    <div class="toggle">
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </div>
+                   
+                    <!--User Image-->
+                    <div>
+                       
+                    </div>
+                </div>
+                <main>
+                    <section class="details">
+                        <div class="recentDetails">
+                            <h1>Complaint : <% if(typeof results[0].complain_id !="undefined" && results[0].complain_id) {%><%= results[0].complain_id %><% } %></h1>
+
+                            <form action="/area_office/reply_complaint" method="post">
+                                <input type="hidden" name="complain_id" value="<% if(typeof results[0].complain_id !="undefined" && results[0].complain_id) {%><%= results[0].complain_id %><% } %>">
+                                <h3>User Details</h3><br>
+                                <div class="form-group">
+                                    <label for="firstname">Name</label>
+                                    <p class="form-element"><% if(typeof results[0].name !="undefined" && results[0].name) {%><%= results[0].name %><% } %></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountno">Account No</label>
+                                    <input type="hidden" name="account_no" value="<% if(typeof results[0].account_no !="undefined" && results[0].account_no) {%><%= results[0].account_no %><% } %>">
+                                    <p class="form-element"><% if(typeof results[0].account_no !="undefined" && results[0].account_no) {%><%= results[0].account_no %><% } %></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <P class="form-element"><% if(typeof results[0].address !="undefined" && results[0].address) {%><%= results[0].address %><% } %></P>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">Contact No</label>
+                                    <p class="form-element"><% if(typeof results[0].mobile_no !="undefined" && results[0].mobile_no) {%><%= results[0].mobile_no %><% } %></p>
+                                </div>
+
+                                <h3>Complaint Details</h3><br>
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <P class="form-element"><% if(typeof results[0].type !="undefined" && results[0].type) {%><%= results[0].type %><% } %></P>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <p class="form-element"><% if(typeof results[0].description !="undefined" && results[0].description) {%><%= results[0].description %><% } %></p>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="note">Status</label>
+                                    <p class="form-element"><% if(typeof results[0].status !="undefined" && results[0].status) {%><%= results[0].status %><% } %></p>
+                                </div>
+                                <div class="form-group">
+                                    </div>
+                                <div class="form-group">
+                                    <label for="status">Change Status</label>
+                                    <select class="form-element" name="status">
+                                        <option value="Select status">Select status</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group full">
+                                    <label for="message">Type a reply here</label>
+                                    <textarea name="reply" id="message" class="form-element" placeholder="Type your reply here ....."><% if(typeof results[0].reply !="undefined" && results[0].reply) {%><%= results[0].reply %><% } %></textarea>
+                                </div>
+                                <div class="submit-group">
+                                    <input type="submit" value="SEND MESSAGE" />
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </main>
+
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+                <script>
+                    //MenuToggle
+                    let toggle = document.querySelector('.toggle');
+                    let navigation = document.querySelector(' .navigation');
+                    let main = document.querySelector('.main');
+
+                    toggle.onclick = function () {
+                        navigation.classList.toggle('active');
+                        main.classList.toggle('active');
+                    }
+                    //add hovered class in selected liste item 
+
+                    let list = document.querySelectorAll('.navigation li');
+                    function activeLink() {
+                        list.forEach((item) =>
+                            item.classList.remove('hovered'));
+                        this.classList.add('hovered');
+                    }
+                    list.forEach((item) =>
+                        item.addEventListener('mouseover', activeLink));
+                </script>
+    </body>
+
+    </html>
