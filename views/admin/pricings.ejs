@@ -1,0 +1,104 @@
+<%- include('../partials/header_admin.ejs') %>  
+<body>
+    <div class="container">
+        <%- include('../partials/admin_nav.ejs') %>  
+
+        <!--main-->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                   <ion-icon name="menu-outline"></ion-icon> 
+                 </div>
+               
+                <!--User Image-->
+                <div class="user">
+                   
+                </div>
+            </div>
+            <div class="details">
+                <div class="recentDetails">
+                    <div class="cardHeader">
+                    <h3>Pricings</h3>
+                    <a href="./add_pricing" class="btn">Add a new Pricing</a>
+                    </div>
+                    <table>
+                        <thead>
+                           <tr>
+                            <th>Tariff</th>
+                            <th>1 - 30</th>
+                            <th>31 - 60</th>
+                            <th>61 - 90</th>
+                            <th>91 - 120</th>
+                            <th>121 - 180</th>
+                            <th>More than 180</th>
+                            <th>Fixed Price</th>
+                            <th></th>
+                           </tr>  
+                        </thead>
+                        <tbody>
+                            <% if(typeof results !='undefined' && results.length!=0){ var i=1; results.forEach(function(data){ %>
+                                <tr style="text-align: center;"> 
+                                    <td>
+                                        <%=data.tariff %>
+                                    </td>
+                                    <td>
+                                        <%=data.b1_30 %>
+                                    </td>
+                                    <td>
+                                        <%=data.b31_60 %>
+                                    </td>
+                                    <td>
+                                        <%=data.b61_90 %>
+                                    </td>
+                                    <td>
+                                        <%=data.b91_120 %>
+                                    </td>
+                                    <td>
+                                        <%=data.b121_180 %>
+                                    </td>
+                                    <td>
+                                        <%=data.more_180 %>
+                                    </td>
+                                    <td>
+                                        <%=data.fixed_price %>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/admin/edit_pricing/<%=data.tariff%>"><span class="status delivered2"><i class="far fa-edit"></i></span></a>
+                                    <a href="/admin/delete_pricing/<%=data.tariff%>"><span class="status delivered3"><i class="far fa-times-circle"></i></span></a>
+                                    </td>
+                                </tr>
+                                <% i++; }) %>
+                                    <% } else{ %>
+                                        <tr>
+                                            <td colspan="7">No Data Found</td>
+                                        </tr>
+                                        <% } %>
+                        </tbody>
+                    </table>
+               </div>
+            </div>  
+                </div>       
+             </div>
+    <script>
+        //MenuToggle
+        let toggle=document.querySelector('.toggle');
+        let navigation=document.querySelector(' .navigation');
+        let main=document.querySelector('.main');
+
+        toggle.onclick=function(){
+            navigation.classList.toggle('active');
+            main.classList.toggle('active');          
+        }
+        //add hovered class in selected liste item 
+
+        let list=document.querySelectorAll('.navigation li');
+        function activeLink(){
+            list.forEach((item)=>
+            item.classList.remove('hovered'));
+            this.classList.add('hovered');
+        } 
+        list.forEach((item)=>
+        item.addEventListener('mouseover',activeLink));
+    </script>
+</body>
+</html>
